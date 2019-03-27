@@ -110,6 +110,7 @@ static int cmd_info(char *args){
     return 1;
 }
 //
+/*
 static int cmd_x(char *args){
    char *arg1=strtok(NULL," ");
    char *arg2=strtok(NULL," ");
@@ -124,8 +125,8 @@ static int cmd_x(char *args){
    }
    printf("\n");
    return 1;
-}
-/*
+}*/
+
 static int cmd_x(char *args){
    char *arg1=strtok(NULL," ");
    char *arg2=strtok(NULL," ");
@@ -135,19 +136,19 @@ static int cmd_x(char *args){
    sscanf(arg2,"%d",&addr);
    for(int j=0;j<len;j++)
    {
-  //   printf("0x%08x ",addr);
+     printf("0x%08x ",addr);
      printf("0x%08x\n",vaddr_read(addr,4));
      addr+=4;
    }
-     for(int k=0;k<4;k++)
+ /*    for(int k=0;k<4;k++)
      {
        printf("%x ",addr);
        addr+=1;
-     }
+     }*/
     // printf("\n");
   // }
      return 1;
-}*/
+}
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
     cmd_c(NULL);
