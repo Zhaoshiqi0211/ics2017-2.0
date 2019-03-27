@@ -38,6 +38,7 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 static int cmd_si(char *args);
+static int cmd_info(char *args);
 static struct {
   char *name;
   char *description;
@@ -46,7 +47,8 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si", "step few steps",  cmd_si }
+  { "si", "step few steps",  cmd_si },
+  { "info","printf the register states", cmd_info }
   /* TODO: Add more commands */
 
 };
@@ -84,6 +86,28 @@ static int cmd_si(char *args) {
    }
    return 1;
 }
+//
+void print_reg(){
+   for (int i=0;i<8;i++){
+       printf("%s %x\n",regsl[i],cpu.gpr[i]._32);
+     }
+   for (int i=0;i<8;i++){
+       printf("%s %x\n",regsw[i],cpu.gpr[i]._16);
+     }
+   for(int i=0;i<8;i++){
+       for(int j=0;j<2;j++){
+           printf("%s %x\n",regsl[i],cpu.gpr[i]._8[j]);
+       }
+    }
+}
+static int cmd_info(char *args){
+    char *arg=strtok(NULL," ");
+    if(strcmp(arg,"r")==0){
+    print_reg(); 
+    }
+    return 1;
+}
+//
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
     cmd_c(NULL);
