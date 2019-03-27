@@ -133,10 +133,10 @@ static int cmd_x(char *args){
    int len;
    vaddr_t addr;
    sscanf(arg1,"%d",&len);
-   sscanf(arg2,"%d",&addr);
+   sscanf(arg2,"%x",&addr);
    for(int j=0;j<len;j++)
    {
-    // printf("0x%08x ",addr);
+     printf("0x%08x ",addr);
      printf("0x%08x\n",vaddr_read(addr,4));
      addr+=4;
    }
