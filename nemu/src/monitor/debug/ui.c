@@ -135,14 +135,16 @@ static int cmd_x(char *args){
    for(int j=0;j<len;j++)
    {
      printf("0x%08x ",addr);
-     printf("0x%08x ",vaddr_read(addr,4));
-     for(int k=0;k<4;k++)
-     {
-       printf("%08x ",vaddr_read(addr,1));
-       addr+=1;
-     }
-     printf("\n");
+     printf("0x%08x\n",vaddr_read(addr,4));
+     addr+=4;
    }
+    /* for(int k=0;k<4;k++)
+     {
+       printf("%x ",addr);
+       addr+=1;
+     }*/
+    // printf("\n");
+  // }
      return 1;
 }
 void ui_mainloop(int is_batch_mode) {
