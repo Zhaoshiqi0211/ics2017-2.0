@@ -91,14 +91,14 @@ static int cmd_si(char *args) {
 //
 void print_reg(){
    for (int i=0;i<8;i++){
-       printf("%s %08x %d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
+       printf("%s 0x%08x %d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
      }
    for (int i=0;i<8;i++){
-       printf("%s %08x %d\n",regsw[i],cpu.gpr[i]._16,cpu.gpr[i]._16);
+       printf("%s 0x%08x %d\n",regsw[i],cpu.gpr[i]._16,cpu.gpr[i]._16);
      }
    for(int i=0;i<8;i++){
        for(int j=0;j<2;j++){
-           printf("%s %08x %d\n",regsl[i],cpu.gpr[i]._8[j],cpu.gpr[i]._8[j]);
+           printf("%s 0x%08x %d\n",regsl[i],cpu.gpr[i]._8[j],cpu.gpr[i]._8[j]);
        }
     }
 }
