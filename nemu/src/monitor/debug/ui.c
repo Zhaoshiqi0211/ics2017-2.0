@@ -90,9 +90,9 @@ static int cmd_si(char *args) {
     sscanf(arg,"%d",&n);
       if(n>=0)
     {
-       for(int j=0;j<n;++j){
-       cpu_exec(1);
-      }
+   //    for(int j=0;j<n;++j){
+       cpu_exec(n);
+   //   }
     }
      else
      cpu_exec(1);
