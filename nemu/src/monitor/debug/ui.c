@@ -82,12 +82,13 @@ static int cmd_help(char *args) {
 static int cmd_si(char *args) {
    char *arg = strtok(NULL," ");
    int n=0;
-   sscanf(arg,"%d",&n);
+  // sscanf(arg,"%d",&n);
    if(arg==NULL)
    cpu_exec(1);
    else
    {
-     if(n>=0)
+    sscanf(arg,"%d",&n);
+      if(n>=0)
     {
        for(int j=0;j<n;++j){
        cpu_exec(1);
