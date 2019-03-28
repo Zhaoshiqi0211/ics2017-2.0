@@ -131,6 +131,7 @@ static int cmd_x(char *args){
    char *arg1=strtok(NULL," ");
    char *arg2=strtok(NULL," ");
    int len;
+   int x,lx,mlx,mhx,hx;
    vaddr_t addr;
    sscanf(arg1,"%d",&len);
    sscanf(arg2,"%x",&addr);
@@ -138,13 +139,13 @@ static int cmd_x(char *args){
    {
      printf("0x%08x ",addr);
      printf("0x%08x ",vaddr_read(addr,4));
+     x=vaddr_read(addr,4);
+     lx=x&0xFF;
+     mlx=x>>8&0xFF;
+     mhx=x>>16&0xFF;
+     hx=x>>24&0xFF;
      addr+=4;
-  // }
-    for(int k=0;k<4;k++)
-     {
-       printf("%02x ",addr);
-       addr+=1;
-     }
+     printf("%02x %02x %02x %02x",lx,mlx,mhx,hx);
      printf("\n");
    }
      return 1;
