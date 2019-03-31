@@ -95,7 +95,7 @@ static int cmd_si(char *args) {
       }
     }
      else
-     cpu_exec(1);
+     cpu_exec(-1);
    }
    return 1;
 }
