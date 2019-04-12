@@ -40,6 +40,7 @@ static int cmd_help(char *args);
 static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
+static int cmd_p(char *args);
 static struct {
   char *name;
   char *description;
@@ -50,7 +51,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "step few steps",  cmd_si },
   { "info","printf the register states", cmd_info },
-  { "x","scanning memory",cmd_x}
+  { "x","scanning memory",cmd_x},
+  { "p","get the value of expression",cmd_p}
   /* TODO: Add more commands */
 
 };
@@ -90,9 +92,9 @@ static int cmd_si(char *args) {
     sscanf(arg,"%d",&n);
       if(n>=0)
     {
-       for(int j=0;j<n;++j){
-       cpu_exec(1);
-      }
+      // for(int j=0;j<n;++j){
+       cpu_exec(n);
+     // }
     }
      else
      cpu_exec(-1);
@@ -161,6 +163,15 @@ static int cmd_x(char *args){
    }
      return 1;
 }
+static int cmd_p(char *args){
+   char *arg=strtok(NULL," ");
+   bool *success=false;
+  // int n=expr(arg,success);
+  // if(*success==true)
+   expr(arg,success);  
+ //  printf("%d",expr(arg,*success));
+   return 1;
+   } 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
     cmd_c(NULL);

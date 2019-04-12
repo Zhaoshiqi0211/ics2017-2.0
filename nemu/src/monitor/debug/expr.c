@@ -5,9 +5,10 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-
+//#include <debug.h>
 enum {
-  TK_NOTYPE = 256, TK_EQ
+  TK_NOTYPE = 256, TK_EQ=255,
+  TK_16=257,TK_10=258,TK_reg=259,TK_UEQ=254,TK_AND=253,TK_OR=252,TK_NOT=251,DEREF=250
 
   /* TODO: Add more token types */
 
@@ -24,13 +25,25 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
-  {"==", TK_EQ}         // equal
+  {"==", TK_EQ},         // equal
+  {"0x[a-fA-F0-9]+",TK_16}, //16jinzhi
+  {"\\d[0-9]+",TK_10}    ,  // 10jinzhi
+  {"$[a-z]{3}",TK_reg},       //register
+  {"\\(",'('},           //left bracket
+  {"\\)",')'},           //right bracket
+  {"\\-",'-'},           //subtract
+  {"\\*",'*'},           //multiply
+  {"\\/",'/'},            //divide
+  {"!=",TK_UEQ},        //not equal
+  {"&&",TK_AND},        //and
+  {"||",TK_OR},         //or
+  {"\\!",TK_NOT},       //not
+ // {"\\*",DEREF}        //deref
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
 
 static regex_t re[NR_REGEX];
-
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
@@ -72,17 +85,47 @@ static bool make_token(char *e) {
 
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
-        position += substr_len;
-
-        /* TODO: Now a new token is recognized with rules[i]. Add codes
-         * to record the token in the array `tokens'. For certain types
-         * of tokens, some extra actions should be performed.
-         */
-
+             position+=substr_len;
+        int num=strlen(rules[i].regex);
+        if(num>31) assert(0);
         switch (rules[i].token_type) {
-          default: TODO();
+          case '+': tokens[i].type='+';
+                    nr_token++;
+          case '-': tokens[i].type='-';
+                    nr_token++;
+          case TK_EQ: tokens[i].type=TK_EQ;
+                    nr_token++;
+          case TK_16: tokens[i].type=TK_16;
+                    nr_token++;
+                    strcpy(tokens[i].str,rules[i].regex);
+          case TK_10: tokens[i].type=TK_10;
+                    nr_token++;
+                    strcpy(tokens[i].str,rules[i].regex);
+          case TK_reg: tokens[i].type=TK_reg;
+                       nr_token++;
+                       strcpy(tokens[i].str,rules[i].regex);
+          case '(': tokens[i].type='(';
+                    nr_token++;
+          case ')': tokens[i].type=')';
+                    nr_token++;
+          case '*': tokens[i].type='-';
+                    nr_token++;
+          case '/': tokens[i].type='*';
+                    nr_token++;
+          case TK_UEQ: tokens[i].type=TK_UEQ;
+                       nr_token++;
+          case TK_AND: tokens[i].type=TK_AND;
+                       nr_token++;
+          case TK_OR: tokens[i].type=TK_OR;
+                      nr_token++;
+          case TK_NOT: tokens[i].type=TK_NOT;
+                       nr_token++;
+        //  case DERERF: token[i].type=DERERF;
+        //               nr_token++; 
+          default:
+                  assert(0);
         }
-
+        
         break;
       }
     }
@@ -95,15 +138,120 @@ static bool make_token(char *e) {
 
   return true;
 }
+bool check_parentheses(int p,int q){                  //match bracket
+   if(tokens[p].type=='('&&tokens[q].type==')')
+   {
+     int k;//
+     int a,b;
+     a=p;
+     b=q;
+     k=0;
+     a++;
+     b--;
+       while(a!=b&&k>=0)
+      {
+        if(tokens[a].type=='('){
+              k++;}
+        else if(tokens[a].type==')'){
+              k--;}
+        a++;     
+      }
+    if(k!=0) return false;
+    else return true; 
+   }
+   else return false;
+}
+int getvalue_operation(Token a){
+    if(a.type==DEREF||a.type==TK_NOT) return 6;
+    else if(a.type=='*'||a.type=='/') return 5;
+    else if(a.type=='+'||a.type=='-') return 4;
+    else if(a.type==TK_EQ||a.type==TK_UEQ) return 3;
+    else if(a.type==TK_AND) return 2;
+    else if(a.type==TK_OR) return 1;
+    else return 0;
+}
+int find_dominated_op(int p,int q){
+    int i,j;
+    int k;
+    k=0;
+    i=p;
+    while(i!=q){
+       if(tokens[i].type=='('){
+             k++;}
+       else if(tokens[i].type==')'){
+             k--;}
+       else if(tokens[i].type<TK_NOTYPE){
+             if(k==0){  break;}}
+       else continue;
+       i++; 
+    }
+    k=0;  
+    j=p;
+    while(j<=q){
+       if(tokens[j].type=='('){
+             k++;}
+       else if(tokens[j].type==')'){
+             k--;}
+       else if(tokens[j].type<TK_NOTYPE){
+             if(k==0) {  
+                 int x=getvalue_operation(tokens[j]);
+                 int y=getvalue_operation(tokens[i]);
+                 if(x!=y&&x<=y) i=j;}
+                 else continue;}
+        else continue;
+            j++;
+      }        
+       
+      if(i==p) assert(0);
+      else return i;            
+}
+uint32_t eval(int p,int q){
+    if(p>q){
+      assert(0); /*bad expression*/
+    }
+    else if(p==q){
+      int a=tokens[p].type-'0';
+      return a;
+       }
+    else if(check_parentheses(p,q)==true){
+       return eval(p+1,q-1);
+    }
+    else{
+      int op=find_dominated_op(p,q);
+      int val1=eval(p,op-1);
+      int val2=eval(op+1,q);
+      switch(tokens[op].type){
+           case '+':return val1+val2;
+           case '-':return val1-val2;
+           case '*':return val1*val2;
+           case '/':{ 
+                if(val2==0) assert(0);
+                else return val1/val2;
+             }
+           case TK_EQ:if(val1==val2) return 1;
+                      else return 0;
+           case TK_UEQ:if(val1!=val2) return 1;
+                      else return 0;
+           case TK_AND:return val1&&val2;
+           case TK_OR:return val1||val2;
+           case TK_NOT:return !val2;
+           case DEREF:
+           default:assert(0);
+         }   
+    }
+}
 
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
-    return 0;
+    return 0;//assert(0)?
   }
-
-  /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  else {
+         *success=true;
+         for(int i=0;i<nr_token;i++){
+           if(tokens[i].type=='*'&&(i==0||(tokens[i-1].type!=TK_16&&tokens[i-1].type!=TK_10))){
+                tokens[i].type=DEREF;}
+           else continue;
+         }     
+  return eval(0,nr_token-1);}
 }
