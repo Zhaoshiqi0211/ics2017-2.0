@@ -217,6 +217,7 @@ uint32_t eval(int p,int q){
        return eval(p+1,q-1);
     }
     else{
+      printf("adasd\n");
       int op=find_dominated_op(p,q);
       int val1=eval(p,op-1);
       int val2=eval(op+1,q);
