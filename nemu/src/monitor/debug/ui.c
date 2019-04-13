@@ -165,10 +165,12 @@ static int cmd_x(char *args){
 }
 static int cmd_p(char *args){
    char *arg=strtok(NULL," ");
-   bool *success=false;
+   int num=strlen(arg);
+   printf("%d %s\n",num,arg);
+ //  bool *success=false;
   // int n=expr(arg,success);
   // if(*success==true)
-    expr(arg,success);  
+ //   expr(arg,success);  
  //  printf("%d",n);
  //  printf("%s",arg);
    return 1;
