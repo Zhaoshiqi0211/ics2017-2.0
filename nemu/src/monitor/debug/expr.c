@@ -270,5 +270,6 @@ uint32_t expr(char *e, bool *success) {
                 tokens[i].type=DEREF;}
            else continue;
          }     
-   return eval(0,nr_token-1);}
+   return eval(0,nr_token-1);  
+                      printf("%d\n",nr_token); }
 }
