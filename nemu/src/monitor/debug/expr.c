@@ -216,7 +216,7 @@ int find_dominated_op(int p,int q){
         else continue;
             j++;
       }        
-       
+       printf("abcd");
       if(i==p) assert(0);
       else return i;            
 }
