@@ -222,16 +222,16 @@ int find_dominated_op(int p,int q){
 }
 uint32_t eval(int p,int q){
     printf("4321");
-    if(p>q){
-      assert(0); /*bad expression*/
+  /*  if(p>q){
+      assert(0); 
     }
     else if(p==q){
       int a=tokens[p].type-'0';
       return a;
        }
-  //  else if(check_parentheses(p,q)==true){
-  //     return eval(p+1,q-1);
-  //  }
+    else if(check_parentheses(p,q)==true){
+       return eval(p+1,q-1);
+    }
     else{
       printf("1234");
       int op=find_dominated_op(p,q);
@@ -256,7 +256,8 @@ uint32_t eval(int p,int q){
            case DEREF:return 1;
            default:assert(0);
          }   
-    }
+    }*/
+   return 0;
 }
 
 uint32_t expr(char *e, bool *success) {
