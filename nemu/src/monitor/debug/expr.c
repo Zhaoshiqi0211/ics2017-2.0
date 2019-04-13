@@ -221,7 +221,7 @@ int find_dominated_op(int p,int q){
       else return i;            
 }
 uint32_t eval(int p,int q){
-    printf("4321");
+   // printf("4321");
     if(p>q){
       assert(0); 
     }
@@ -235,7 +235,7 @@ uint32_t eval(int p,int q){
     else{
   //    printf("1234");
   //    int op=find_dominated_op(p,q);
-      printf("1312");
+  //    printf("1312");
      int op=1;// 
       int val1=eval(p,op-1);
       int val2=eval(op+1,q);
