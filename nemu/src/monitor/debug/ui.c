@@ -168,8 +168,8 @@ static int cmd_p(char *args){
    bool *success=false;
   // int n=expr(arg,success);
   // if(*success==true)
-   expr(arg,success);  
- //  printf("%d",expr(arg,*success));
+  int n=expr(arg,success);  
+   printf("%d",n);
    return 1;
    } 
 void ui_mainloop(int is_batch_mode) {
