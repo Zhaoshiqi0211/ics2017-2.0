@@ -245,7 +245,7 @@ uint32_t eval(int p,int q){
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
-    return 1;//assert(0)?
+    return 0;//assert(0)?
   }
   else {
         printf("132131");
@@ -255,5 +255,6 @@ uint32_t expr(char *e, bool *success) {
                 tokens[i].type=DEREF;}
            else continue;
          }     
-  return eval(0,nr_token-1);}
+    return 1;}
+  // return eval(0,nr_token-1);}
 }
