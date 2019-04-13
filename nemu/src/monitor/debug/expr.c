@@ -228,7 +228,7 @@ uint32_t eval(int p,int q){
     }
     else if(p==q){
       int a;
-      printf("%s\n",tokens[p].str);
+   //   printf("%s\n",tokens[p].str);
       sscanf(tokens[p].str,"%d",&a);
       return a;
        }
@@ -277,6 +277,6 @@ uint32_t expr(char *e, bool *success) {
                 tokens[i].type=DEREF;}
            else continue;
          }     
-      printf("%d\n",nr_token);
+  //    printf("%d\n",nr_token);
       return eval(0,nr_token-1); }
 }
