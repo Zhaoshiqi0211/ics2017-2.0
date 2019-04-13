@@ -122,8 +122,8 @@ static bool make_token(char *e) {
                        nr_token++;
         //  case DERERF: token[i].type=DERERF;
         //               nr_token++; 
-          default:
-                  assert(0);
+        //  default:
+        //          assert(0);
         }
         
         break;
