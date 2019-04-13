@@ -221,6 +221,7 @@ int find_dominated_op(int p,int q){
       else return i;            
 }
 uint32_t eval(int p,int q){
+    printf("4321");
     if(p>q){
       assert(0); /*bad expression*/
     }
