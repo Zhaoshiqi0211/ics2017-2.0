@@ -228,9 +228,9 @@ uint32_t eval(int p,int q){
       int a=tokens[p].type-'0';
       return a;
        }
-    else if(check_parentheses(p,q)==true){
-       return eval(p+1,q-1);
-    }
+  //  else if(check_parentheses(p,q)==true){
+  //     return eval(p+1,q-1);
+  //  }
     else{
       printf("1234");
       int op=find_dominated_op(p,q);
