@@ -106,6 +106,7 @@ static bool make_token(char *e) {
           case TK_10: tokens[nr_token].type=TK_10;
                     nr_token++;
                     strcpy(tokens[nr_token].str,rules[i].regex);
+                    printf("%s\n",tokens[nr_token].str);
                     break;
           case TK_reg: tokens[nr_token].type=TK_reg;
                        nr_token++;
@@ -241,7 +242,7 @@ uint32_t eval(int p,int q){
      int op=1;// 
       int val1=eval(p,op-1);
       int val2=eval(op+1,q);
-      printf("%d %d\n",val1,val2); 
+    //  printf("%d %d\n",val1,val2); 
       switch(tokens[op].type){
            case '+':return val1+val2;
            case '-':return val1-val2;
