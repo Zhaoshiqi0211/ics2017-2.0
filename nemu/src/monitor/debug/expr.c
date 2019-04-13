@@ -259,18 +259,15 @@ uint32_t eval(int p,int q){
 
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
-     printf("123");
     *success = false;
     return 0;//assert(0)?
   }
   else {
-        printf("132131");
           *success=true;
          for(int i=0;i<nr_token;i++){
            if(tokens[i].type=='*'&&(i==0||(tokens[i-1].type!=TK_16&&tokens[i-1].type!=TK_10))){
                 tokens[i].type=DEREF;}
            else continue;
          }     
-    return 1;}
-  // return eval(0,nr_token-1);}
+   return eval(0,nr_token-1);}
 }
