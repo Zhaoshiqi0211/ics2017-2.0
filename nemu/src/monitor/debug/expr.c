@@ -86,7 +86,8 @@ static bool make_token(char *e) {
                tokens[nr_token].str[j]='\0';}
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
-             position+=substr_len;
+           strncpy(tokens[nr_token].str,e+position,substr_len);  
+           position+=substr_len;
        // int num=strlen(rules[i].regex);
        // if(num>31) assert(0);
         switch (rules[i].token_type) {
@@ -101,16 +102,16 @@ static bool make_token(char *e) {
                     break;
           case TK_16: tokens[nr_token].type=TK_16;
                     nr_token++;
-                    strcpy(tokens[nr_token].str,rules[i].regex);
+                  //  strcpy(tokens[nr_token].str,rules[i].regex);
                     break;
           case TK_10: tokens[nr_token].type=TK_10;
                     nr_token++;
-                    strncpy(tokens[nr_token].str,e+position,substr_len);
+                   // strncpy(tokens[nr_token].str,e+position,substr_len);
                     printf("%s\n",tokens[nr_token].str);
                     break;
           case TK_reg: tokens[nr_token].type=TK_reg;
                        nr_token++;
-                       strcpy(tokens[nr_token].str,rules[i].regex);
+                    //   strcpy(tokens[nr_token].str,rules[i].regex);
                        break;
           case '(': tokens[nr_token].type='(';
                     nr_token++;
