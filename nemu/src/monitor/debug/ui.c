@@ -165,12 +165,12 @@ static int cmd_x(char *args){
 }
 static int cmd_p(char *args){
    char *arg=strtok(NULL," ");
-  // bool *success=false;
+   bool *success=false;
   // int n=expr(arg,success);
   // if(*success==true)
- // int n=expr(arg,success);  
+    expr(arg,success);  
  //  printf("%d",n);
-   printf("%s",arg);
+ //  printf("%s",arg);
    return 1;
    } 
 void ui_mainloop(int is_batch_mode) {

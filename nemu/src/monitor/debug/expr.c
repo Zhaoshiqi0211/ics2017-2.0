@@ -31,12 +31,12 @@ static struct rule {
   {"$[a-z]{3}",TK_reg},       //register
   {"\\(",'('},           //left bracket
   {"\\)",')'},           //right bracket
-  {"\\-",'-'},           //subtract
+  {"-",'-'},           //subtract
   {"\\*",'*'},           //multiply
-  {"\\/",'/'},            //divide
+  {"/",'/'},            //divide
   {"!=",TK_UEQ},        //not equal
   {"&&",TK_AND},        //and
-  {"||",TK_OR},         //or
+  {"\\|\\|",TK_OR},         //or
   {"\\!",TK_NOT},       //not
  // {"\\*",DEREF}        //deref
 };
