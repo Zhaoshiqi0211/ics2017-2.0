@@ -105,7 +105,7 @@ static bool make_token(char *e) {
                     break;
           case TK_10: tokens[nr_token].type=TK_10;
                     nr_token++;
-                    strcpy(tokens[nr_token].str,rules[i].regex);
+                    strncpy(tokens[nr_token].str,e+position,substr_len);
                     printf("%s\n",tokens[nr_token].str);
                     break;
           case TK_reg: tokens[nr_token].type=TK_reg;
