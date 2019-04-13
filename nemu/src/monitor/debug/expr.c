@@ -232,8 +232,8 @@ uint32_t eval(int p,int q){
        return eval(p+1,q-1);
     }
     else{
-      printf("adasd\n");
       int op=find_dominated_op(p,q);
+      printf("1312");
       int val1=eval(p,op-1);
       int val2=eval(op+1,q);
       switch(tokens[op].type){
@@ -251,7 +251,7 @@ uint32_t eval(int p,int q){
            case TK_AND:return val1&&val2;
            case TK_OR:return val1||val2;
            case TK_NOT:return !val2;
-           case DEREF:
+           case DEREF:return 1;
            default:assert(0);
          }   
     }
