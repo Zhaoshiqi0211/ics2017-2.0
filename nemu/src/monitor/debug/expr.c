@@ -226,7 +226,8 @@ uint32_t eval(int p,int q){
       assert(0); 
     }
     else if(p==q){
-      int a=tokens[p].type-'0';
+      int a;
+      sscanf(tokens[p].str,"%d",&a);
       return a;
        }
     else if(check_parentheses(p,q)==true){
