@@ -166,9 +166,9 @@ static int cmd_x(char *args){
 static int cmd_p(char *args){
    char *arg=strtok(NULL," ");
    bool success=false;
-  // int n=expr(arg,&success);
-  // printf("%d",n);
-   expr(arg,&success);
+   int n=expr(arg,&success);
+   printf("%d",n);
+ //  expr(arg,&success);
    return 1;
    } 
 void ui_mainloop(int is_batch_mode) {
