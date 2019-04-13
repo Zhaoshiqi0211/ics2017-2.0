@@ -27,7 +27,7 @@ static struct rule {
   {"\\+", '+'},         // plus
   {"==", TK_EQ},         // equal
   {"0x[a-fA-F0-9]+",TK_16}, //16jinzhi
-  {"d[0-9]+",TK_10}    ,  // 10jinzhi
+  {"[0-9]+",TK_10}    ,  // 10jinzhi
   {"$[a-z]{3}",TK_reg},       //register
   {"\\(",'('},           //left bracket
   {"\\)",')'},           //right bracket
