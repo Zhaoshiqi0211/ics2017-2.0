@@ -227,6 +227,7 @@ uint32_t eval(int p,int q){
     }
     else if(p==q){
       int a;
+      printf("%s\n",tokens[p].str);
       sscanf(tokens[p].str,"%d",&a);
       return a;
        }
