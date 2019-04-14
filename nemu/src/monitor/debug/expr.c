@@ -294,9 +294,9 @@ uint32_t expr(char *e, bool *success) {
          for(int i=0;i<nr_token;i++){
            if(tokens[i].type=='*'&&(i==0||(tokens[i-1].type!=TK_16&&tokens[i-1].type!=TK_10&&tokens[i-1].type!=TK_reg&&tokens[i-1].type!=TK_RBA))){
                 tokens[i].type=DEREF;}
-         //  else if(tokens[i].type=='-'&&(i==0||(tokens[i-1].type!=TK_16&&tokens[i-1].type!=TK_10&&tokens[i-1].type!=TK_reg&&tokens[i-1].type!=TK_RBA))){   
-         //       tokens[i].type=TK_MI;}                                                                                                                                                                                                                                                                                                                                                                                                                           )
-           else continue;
+           else if(tokens[i].type=='-'&&(i==0||(tokens[i-1].type!=TK_16&&tokens[i-1].type!=TK_10&&tokens[i-1].type!=TK_reg&&tokens[i-1].type!=TK_RBA))){
+                tokens[i].type=TK_MI;}
+                                                                                                                                                                                                                                                        else continue;
          }     
   //    printf("%d\n",nr_token);
       return eval(0,nr_token-1); }
