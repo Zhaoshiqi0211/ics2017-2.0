@@ -156,7 +156,7 @@ static bool make_token(char *e) {
 }
 bool check_parentheses(int p,int q){                  //match bracket
    if(tokens[p].type==TK_LBA&&tokens[q].type==TK_RBA)
-   {
+  /* {
      int k;//
      int a,b;
      a=p;
@@ -174,7 +174,8 @@ bool check_parentheses(int p,int q){                  //match bracket
       }
     if(k!=0) return false;
     else return true; 
-   }
+   }*/
+   return true;
    else return false;
 }
 int getvalue_operation(Token a){
@@ -203,9 +204,9 @@ int find_dominated_op(int p,int q){
     k=0;  
     j=p;
     while(j<=q){
-       if(tokens[j].type=='('){
+       if(tokens[j].type==TK_LBA){
              k++;}
-       else if(tokens[j].type==')'){
+       else if(tokens[j].type==TK_RBA){
              k--;}
        else if(tokens[j].type<TK_NOTYPE){
              if(k==0) {  
