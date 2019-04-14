@@ -148,7 +148,23 @@ static int cmd_x(char *args){
    int x,lx,mlx,mhx,hx;
    vaddr_t addr;
    sscanf(arg1,"%d",&len);
-   sscanf(arg2,"%x",&addr);
+  // int flag=0;
+  // int k;
+  /* for(int i=0;i<8;i++)
+   {
+      if(strcmp(arg2+1,regsl[i])==0)
+      {
+        flag=1;
+        k=i;
+        break;}
+   }*/
+  // if(flag==1) &addr=cpu.gpr[k]._32;
+  // else{
+  //     if(strcmp(arg2,"$eip")==0)
+  //      &addr=cpu.eip;
+  //     else 
+        sscanf(arg2,"%x",&addr);
+  //     }
    for(int j=0;j<len;j++)
    {
      printf("0x%08x ",addr);

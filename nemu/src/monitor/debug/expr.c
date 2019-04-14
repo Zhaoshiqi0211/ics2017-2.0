@@ -164,7 +164,7 @@ bool check_parentheses(int p,int q){                  //match bracket
      k=0;
      a++;
      b--;
-       while(a!=b&&k>=0)
+       while(a<=b&&k>=0)
       {
         if(tokens[a].type==TK_LBA){
               k++;}
@@ -172,7 +172,7 @@ bool check_parentheses(int p,int q){                  //match bracket
               k--;}
         a++;     
       }
-    if(k!=0) assert(0);
+    if(k!=0) return false;
     else return true; 
    }
    else {
