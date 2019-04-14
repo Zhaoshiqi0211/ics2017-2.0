@@ -105,7 +105,8 @@ static int cmd_si(char *args) {
 void print_reg(){
    for (int i=0;i<8;i++){
        printf("%s 0x%08x %d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
-     }
+      }
+       printf("eip 0x%08x %d\n",cpu.eip,cpu.eip);
    for (int i=0;i<8;i++){
        printf("%s 0x%08x %d\n",regsw[i],cpu.gpr[i]._16,cpu.gpr[i]._16);
      }
