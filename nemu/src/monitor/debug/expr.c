@@ -191,6 +191,7 @@ int find_dominated_op(int p,int q){
     int k;
     k=0;
     i=p;
+    printf("a\n");
     while(i!=q){
        if(tokens[i].type=='('){
              k++;}
@@ -201,6 +202,7 @@ int find_dominated_op(int p,int q){
        else continue;
        i++; 
     }
+    printf("b:%d\n",i);
     k=0;  
     j=p;
     while(j<=q){
@@ -236,9 +238,7 @@ uint32_t eval(int p,int q){
        return eval(p+1,q-1);
     }
     else{
-  //    printf("1234");
     int op=find_dominated_op(p,q);
-  //    printf("1312");
     // int op=1;// 
       int val1=eval(p,op-1);
       int val2=eval(op+1,q);
