@@ -175,19 +175,7 @@ bool check_parentheses(int p,int q){                  //match bracket
     if(k!=0) return false;
     else return true; 
    }
-   else {
-      int t,x,y;
-      x=p;
-      y=q;
-      t=0;
-      while(x<=y&&t>=0)
-     {
-        if(tokens[x].type==TK_LBA) t++;
-        else if(tokens[y].type==TK_RBA) t--;
-        x++;
-     }
-     if(t==0) return false;
-     else assert(0);}
+   else return false;
 }
 int getvalue_operation(Token a){
     if(a.type==DEREF||a.type==TK_NOT||a.type==TK_MI) return 6;
