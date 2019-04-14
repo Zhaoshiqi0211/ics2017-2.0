@@ -227,7 +227,6 @@ uint32_t eval(int p,int q){
       return a;
        }
     else if(check_parentheses(p,q)==true){
-         printf("12345");
           return eval(p+1,q-1);
     }
     else{
