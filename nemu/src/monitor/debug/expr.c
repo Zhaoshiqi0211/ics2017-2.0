@@ -28,7 +28,7 @@ static struct rule {
   {"==", TK_EQ},         // equal
   {"0x[a-fA-F0-9]+",TK_16}, //16jinzhi
   {"[0-9]+",TK_10}    ,  // 10jinzhi
-  {"$[a-z]{3}",TK_reg},       //register
+  {"$e[a-z]{2}",TK_reg},       //register
   {"\\(",TK_LBA},           //left bracket
   {"\\)",TK_RBA},           //right bracket
   {"-",'-'},           //subtract
