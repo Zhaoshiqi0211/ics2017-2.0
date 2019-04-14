@@ -156,7 +156,7 @@ static bool make_token(char *e) {
 }
 bool check_parentheses(int p,int q){                  //match bracket
    if(tokens[p].type==TK_LBA&&tokens[q].type==TK_RBA)
-  /* {
+   {
      int k;//
      int a,b;
      a=p;
@@ -174,8 +174,7 @@ bool check_parentheses(int p,int q){                  //match bracket
       }
     if(k!=0) return false;
     else return true; 
-   }*/
-   return true;
+   }
    else return false;
 }
 int getvalue_operation(Token a){
