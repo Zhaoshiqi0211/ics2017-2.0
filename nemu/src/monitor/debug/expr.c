@@ -189,15 +189,19 @@ int getvalue_operation(Token a){
 int find_dominated_op(int p,int q){
     int i,j;
     int k;
+    int flag;
     k=0;
     i=p;
+    flag=0;
     while(i!=q){
        if(tokens[i].type==TK_LBA){
              k++;}
        else if(tokens[i].type==TK_RBA){
              k--;}
        else if(tokens[i].type<TK_NOTYPE){
-             if(k==0){  break;}}
+             if(k==0){ 
+                   flag=1;
+                   break;}}
        i++; 
     }
     k=0;  
@@ -214,7 +218,7 @@ int find_dominated_op(int p,int q){
                  if(x!=y&&x<=y) i=j;}}
        j++;
       }        
-      if(i==p) assert(0);
+      if(flag==0) assert(0);
       else return i;            
 }
 uint32_t eval(int p,int q){
