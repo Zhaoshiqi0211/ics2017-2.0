@@ -215,7 +215,7 @@ int find_dominated_op(int p,int q){
              if(k==0) {  
                  int x=getvalue_operation(tokens[j]);
                  int y=getvalue_operation(tokens[i]);
-                 if(x!=y&&x<=y) i=j;}}
+                 if(j!=i&&x<=y) i=j;}}
        j++;
       }        
       if(flag==0) assert(0);
@@ -235,7 +235,7 @@ uint32_t eval(int p,int q){
     }
     else{
     int op=find_dominated_op(p,q);
-    printf("%d\n",op);
+   // printf("%d\n",op);
     int val1,val2;
      if(op==0){
            val1=1;
