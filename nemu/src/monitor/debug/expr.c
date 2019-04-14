@@ -215,7 +215,12 @@ int find_dominated_op(int p,int q){
              if(k==0) {  
                  int x=getvalue_operation(tokens[j]);
                  int y=getvalue_operation(tokens[i]);
-                 if(j!=i&&x<=y) i=j;}}
+                 if(j!=i){
+                       if(x<y) i=j;
+                       else if(x==y){
+                               if(tokens[i].type==TK_NOT||tokens[i].type==DEREF)  i=i;
+                               else i=j;}
+         }} }
        j++;
       }        
       if(flag==0) assert(0);
