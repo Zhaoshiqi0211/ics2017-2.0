@@ -112,10 +112,10 @@ static bool make_token(char *e) {
                        nr_token++;
                     //   strcpy(tokens[nr_token].str,rules[i].regex);
                        break;
-          case TK_LBA: tokens[nr_token].type='(';
+          case TK_LBA: tokens[nr_token].type=TK_LBA;
                     nr_token++;
                     break;
-          case TK_RBA: tokens[nr_token].type=')';
+          case TK_RBA: tokens[nr_token].type=TK_RBA;
                     nr_token++;
                     break; 
           case '*': tokens[nr_token].type='*';
