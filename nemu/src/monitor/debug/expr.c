@@ -237,7 +237,7 @@ uint32_t eval(int p,int q){
     int op=find_dominated_op(p,q);
    // printf("%d\n",op);
     int val1,val2;
-     if(op==0){
+     if(tokens[op].type==TK_NOT||tokens[op].type==DEREF){
            val1=1;
            val2=eval(op+1,q);}
      else{
