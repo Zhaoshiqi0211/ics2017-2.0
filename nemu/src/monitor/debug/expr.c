@@ -199,7 +199,6 @@ int find_dominated_op(int p,int q){
      //  else if(tokens[i].type<TK_NOTYPE){
      //  else if(tokens[i].type=='+'){
      //        if(k==0){  break;}}
-       else continue;
        printf("%d\n",i);
        i++; 
     }
