@@ -8,7 +8,7 @@
 //#include <debug.h>
 enum {
   TK_NOTYPE = 256, TK_EQ=255,
-  TK_16=257,TK_10=258,TK_reg=259,TK_UEQ=254,TK_AND=253,TK_OR=252,TK_NOT=251,DEREF=250
+  TK_16=257,TK_10=258,TK_reg=259,TK_UEQ=254,TK_AND=253,TK_OR=252,TK_NOT=251,DEREF=250,TK_LBA=249,TK_RBA=248
 
   /* TODO: Add more token types */
 
@@ -29,8 +29,8 @@ static struct rule {
   {"0x[a-fA-F0-9]+",TK_16}, //16jinzhi
   {"[0-9]+",TK_10}    ,  // 10jinzhi
   {"$[a-z]{3}",TK_reg},       //register
-  {"\\(",'('},           //left bracket
-  {"\\)",')'},           //right bracket
+  {"\\(",TK_LBA},           //left bracket
+  {"\\)",TK_RBA},           //right bracket
   {"-",'-'},           //subtract
   {"\\*",'*'},           //multiply
   {"/",'/'},            //divide
@@ -112,10 +112,10 @@ static bool make_token(char *e) {
                        nr_token++;
                     //   strcpy(tokens[nr_token].str,rules[i].regex);
                        break;
-          case '(': tokens[nr_token].type='(';
+          case TK_LBA: tokens[nr_token].type='(';
                     nr_token++;
                     break;
-          case ')': tokens[nr_token].type=')';
+          case TK_RBA: tokens[nr_token].type=')';
                     nr_token++;
                     break; 
           case '*': tokens[nr_token].type='*';
@@ -155,7 +155,7 @@ static bool make_token(char *e) {
   return true;
 }
 bool check_parentheses(int p,int q){                  //match bracket
-   if(tokens[p].type=='('&&tokens[q].type==')')
+   if(tokens[p].type==TK_LBA&&tokens[q].type==TK_RBA)
    {
      int k;//
      int a,b;
@@ -192,14 +192,14 @@ int find_dominated_op(int p,int q){
     k=0;
     i=p;
     while(i!=q){
-     /*  if(tokens[i].type=='('){
+       if(tokens[i].type==TK_LBA){
              k++;}
-       else if(tokens[i].type==')'){
+       else if(tokens[i].type==TK_RBA){
              k--;}
      //  else if(tokens[i].type<TK_NOTYPE){
      //  else if(tokens[i].type=='+'){
      //        if(k==0){  break;}}
-       else continue;*/
+       else continue;
        printf("%d\n",i);
        i++; 
     }
