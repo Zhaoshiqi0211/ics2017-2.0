@@ -166,9 +166,9 @@ bool check_parentheses(int p,int q){                  //match bracket
      b--;
        while(a!=b&&k>=0)
       {
-        if(tokens[a].type=='('){
+        if(tokens[a].type==TK_LBA){
               k++;}
-        else if(tokens[a].type==')'){
+        else if(tokens[a].type==TK_RBA){
               k--;}
         a++;     
       }
@@ -227,7 +227,8 @@ uint32_t eval(int p,int q){
       return a;
        }
     else if(check_parentheses(p,q)==true){
-       return eval(p+1,q-1);
+         printf("12345");
+          return eval(p+1,q-1);
     }
     else{
     int op=find_dominated_op(p,q);
