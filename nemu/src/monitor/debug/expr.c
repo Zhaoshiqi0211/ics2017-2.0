@@ -231,11 +231,20 @@ uint32_t eval(int p,int q){
       assert(0); 
     }
     else if(p==q){
-      uint32_t a;
+      uint32_t a=0;
+      int flag_2=0;
       if(tokens[p].type==TK_10)
       sscanf(tokens[p].str,"%d",&a);
       else if(tokens[p].type==TK_16)
       sscanf(tokens[p].str,"%x",&a);
+      else if(tokens[p].type==TK_reg){
+           int i;
+          for(i=0;i<8;i++){
+              if(strcmp(tokens[p].str+1,regsl[i])==0){
+                     flag_2=1;
+                     break;}}
+           if(flag_2==1) a=cpu.gpr[i]._32;
+           else  a=cpu.eip;}
       return a;
        }
     else if(check_parentheses(p,q)==true){
