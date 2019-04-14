@@ -235,8 +235,13 @@ uint32_t eval(int p,int q){
     }
     else{
     int op=find_dominated_op(p,q);
-      int val1=eval(p,op-1);
-      int val2=eval(op+1,q);
+    int val1,val2;
+     if(op==1){
+           val1=1;
+           val2=eval(op+1,q);}
+     else{
+         val1=eval(p,op-1);
+         val2=eval(op+1,q);}
     //  printf("%d %d\n",val1,val2); 
       switch(tokens[op].type){
            case '+':return val1+val2;
