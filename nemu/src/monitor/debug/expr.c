@@ -202,7 +202,7 @@ int find_dominated_op(int p,int q){
      //  printf("%d\n",i);
        i++; 
     }
-    printf("b:%d\n",i);
+  //  printf("b:%d\n",i);
     k=0;  
     j=p;
     while(j<=q){
@@ -217,7 +217,7 @@ int find_dominated_op(int p,int q){
                  if(x!=y&&x<=y) i=j;}}
        j++;
       }        
-       printf("abcd");
+    //   printf("abcd");
       if(i==p) assert(0);
       else return i;            
 }
