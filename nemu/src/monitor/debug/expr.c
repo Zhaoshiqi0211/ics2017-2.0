@@ -8,8 +8,8 @@
 //#include <debug.h>
 enum {
   TK_NOTYPE = 256, TK_EQ=255,
-  TK_16=257,TK_10=258,TK_reg=259,TK_UEQ=254,TK_AND=253,TK_OR=252,TK_NOT=251,DEREF=250,TK_LBA=249,TK_RBA=248
-
+  TK_16=257,TK_10=258,TK_reg=259,TK_UEQ=254,TK_AND=253,TK_OR=252,TK_NOT=251,DEREF=250,TK_LBA=249,TK_RBA=248,TK_MI=247
+  
   /* TODO: Add more token types */
 
 };
@@ -178,7 +178,7 @@ bool check_parentheses(int p,int q){                  //match bracket
    else return false;
 }
 int getvalue_operation(Token a){
-    if(a.type==DEREF||a.type==TK_NOT) return 6;
+    if(a.type==DEREF||a.type==TK_NOT||a.type==TK_MI) return 6;
     else if(a.type=='*'||a.type=='/') return 5;
     else if(a.type=='+'||a.type=='-') return 4;
     else if(a.type==TK_EQ||a.type==TK_UEQ) return 3;
@@ -218,7 +218,7 @@ int find_dominated_op(int p,int q){
                  if(j!=i){
                        if(x<y) i=j;
                        else if(x==y){
-                               if(tokens[i].type==TK_NOT||tokens[i].type==DEREF)  i=i;
+                               if(tokens[i].type==TK_NOT||tokens[i].type==DEREF||tokens[i].type==TK_MI)  i=i;
                                else i=j;}
          }} }
        j++;
@@ -254,7 +254,7 @@ uint32_t eval(int p,int q){
     int op=find_dominated_op(p,q);
    // printf("%d\n",op);
     int val1,val2;
-     if(tokens[op].type==TK_NOT||tokens[op].type==DEREF){
+     if(tokens[op].type==TK_NOT||tokens[op].type==DEREF||tokens[op].type==TK_MI){
            val1=1;
            val2=eval(op+1,q);}
      else{
@@ -277,6 +277,7 @@ uint32_t eval(int p,int q){
            case TK_OR:return val1||val2;
            case TK_NOT:return !val2;
            case DEREF:return vaddr_read(val2,4);
+           case TK_MI:return -val2;
            default:assert(0);
          }   
     }
@@ -291,8 +292,10 @@ uint32_t expr(char *e, bool *success) {
   else {
           *success=true;
          for(int i=0;i<nr_token;i++){
-           if(tokens[i].type=='*'&&(i==0||(tokens[i-1].type!=TK_16&&tokens[i-1].type!=TK_10))){
+           if(tokens[i].type=='*'&&(i==0||(tokens[i-1].type!=TK_16&&tokens[i-1].type!=TK_10&&tokens[i-1].type!=TK_reg&&tokens[i-1].type!=TK_RBA))){
                 tokens[i].type=DEREF;}
+         //  else if(tokens[i].type=='-'&&(i==0||(tokens[i-1].type!=TK_16&&tokens[i-1].type!=TK_10&&tokens[i-1].type!=TK_reg&&tokens[i-1].type!=TK_RBA))){   
+         //       tokens[i].type=TK_MI;}                                                                                                                                                                                                                                                                                                                                                                                                                           )
            else continue;
          }     
   //    printf("%d\n",nr_token);
