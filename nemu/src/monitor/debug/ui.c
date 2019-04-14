@@ -107,7 +107,7 @@ void print_reg(){
        printf("%s 0x%08x %d\n",regsl[i],cpu.gpr[i]._32,cpu.gpr[i]._32);
       }
        printf("eip 0x%08x %d\n",cpu.eip,cpu.eip);
-   for (int i=0;i<8;i++){
+   for  (int i=0;i<8;i++){
        printf("%s 0x%08x %d\n",regsw[i],cpu.gpr[i]._16,cpu.gpr[i]._16);
      }
    for(int i=0;i<8;i++){
@@ -167,7 +167,7 @@ static int cmd_x(char *args){
 static int cmd_p(char *args){
    char *arg=strtok(NULL," ");
    bool success=false;
-   int n=expr(arg,&success);
+   uint32_t n=expr(arg,&success);
   printf("0x%08x\n",n);
  //  expr(arg,&success);
    return 1;
