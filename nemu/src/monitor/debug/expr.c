@@ -192,14 +192,14 @@ int find_dominated_op(int p,int q){
     k=0;
     i=p;
     while(i!=q){
-       if(tokens[i].type=='('){
+     /*  if(tokens[i].type=='('){
              k++;}
        else if(tokens[i].type==')'){
              k--;}
      //  else if(tokens[i].type<TK_NOTYPE){
      //  else if(tokens[i].type=='+'){
      //        if(k==0){  break;}}
-       else continue;
+       else continue;*/
        printf("%d\n",i);
        i++; 
     }
