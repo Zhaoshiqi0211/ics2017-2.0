@@ -231,8 +231,11 @@ uint32_t eval(int p,int q){
       assert(0); 
     }
     else if(p==q){
-      int a;
+      uint32_t a;
+      if(tokens[p].type==TK_10)
       sscanf(tokens[p].str,"%d",&a);
+      else if(tokens[p].type==TK_16)
+      sscanf(tokens[p].str,"%x",&a);
       return a;
        }
     else if(check_parentheses(p,q)==true){
@@ -264,7 +267,7 @@ uint32_t eval(int p,int q){
            case TK_AND:return val1&&val2;
            case TK_OR:return val1||val2;
            case TK_NOT:return !val2;
-           case DEREF:return 1;
+           case DEREF:return vaddr_read(val2,4);
            default:assert(0);
          }   
     }

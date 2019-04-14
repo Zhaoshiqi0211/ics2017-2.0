@@ -167,7 +167,7 @@ static int cmd_p(char *args){
    char *arg=strtok(NULL," ");
    bool success=false;
    int n=expr(arg,&success);
-   printf("%d\n",n);
+   printf("%08x\n",n);
  //  expr(arg,&success);
    return 1;
    } 
