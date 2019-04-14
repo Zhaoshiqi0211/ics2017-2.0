@@ -236,7 +236,7 @@ uint32_t eval(int p,int q){
     else{
     int op=find_dominated_op(p,q);
     int val1,val2;
-     if(op==1){
+     if(op==0){
            val1=1;
            val2=eval(op+1,q);}
      else{
