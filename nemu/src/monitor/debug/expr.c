@@ -197,12 +197,9 @@ int find_dominated_op(int p,int q){
        else if(tokens[i].type==TK_RBA){
              k--;}
        else if(tokens[i].type<TK_NOTYPE){
-     //  else if(tokens[i].type=='+'){
              if(k==0){  break;}}
-     //  printf("%d\n",i);
        i++; 
     }
-  //  printf("b:%d\n",i);
     k=0;  
     j=p;
     while(j<=q){
@@ -217,18 +214,15 @@ int find_dominated_op(int p,int q){
                  if(x!=y&&x<=y) i=j;}}
        j++;
       }        
-    //   printf("abcd");
       if(i==p) assert(0);
       else return i;            
 }
 uint32_t eval(int p,int q){
-   // printf("4321");
     if(p>q){
       assert(0); 
     }
     else if(p==q){
       int a;
-   //   printf("%s\n",tokens[p].str);
       sscanf(tokens[p].str,"%d",&a);
       return a;
        }
@@ -237,7 +231,6 @@ uint32_t eval(int p,int q){
     }
     else{
     int op=find_dominated_op(p,q);
-    // int op=1;// 
       int val1=eval(p,op-1);
       int val2=eval(op+1,q);
     //  printf("%d %d\n",val1,val2); 
