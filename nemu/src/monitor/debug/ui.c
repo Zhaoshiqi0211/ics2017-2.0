@@ -198,8 +198,8 @@ static int cmd_w(char *args)
 { 
       char *arg=strtok(NULL," ");
       int no=set_watchpoint(arg);
-      printf("%dabcdefgh\n",no);
       WP *p;
+      printf("%s\n",head->expr);
       p=head;
       while(p!=NULL)
       {
