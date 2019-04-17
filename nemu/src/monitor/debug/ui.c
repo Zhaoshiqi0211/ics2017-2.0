@@ -41,6 +41,8 @@ static int cmd_si(char *args);
 static int cmd_info(char *args);
 static int cmd_x(char *args);
 static int cmd_p(char *args);
+static int cmd_w(char *args);
+static int cmd_d(char *args);
 static struct {
   char *name;
   char *description;
@@ -52,7 +54,9 @@ static struct {
   { "si", "step few steps",  cmd_si },
   { "info","printf the register states", cmd_info },
   { "x","scanning memory",cmd_x},
-  { "p","get the value of expression",cmd_p}
+  { "p","get the value of expression",cmd_p},
+  { "w","set a new watchpoint",cmd_w},
+  { "d","delete a watchpoint",cmd_d}
   /* TODO: Add more commands */
 
 };
@@ -119,7 +123,9 @@ void print_reg(){
 static int cmd_info(char *args){
     char *arg=strtok(NULL," ");
     if(strcmp(arg,"r")==0){
-    print_reg(); 
+    print_reg();}
+    else if(strcmp(arg,"w")==0){
+    list_watchpoint(); 
     }
     return 1;
 }
@@ -188,6 +194,36 @@ static int cmd_p(char *args){
  //  expr(arg,&success);
    return 1;
    } 
+static int cmd_w(char *args)
+{ 
+      char *arg=strtok(NULL," ");
+      int no=set_watchpoint(arg);
+      WP *p;
+      p=head;
+      while(p!=NULL)
+      {
+         if(p->NO==no)
+          {
+             printf("Set watchpoint #%d\n",no);
+             printf("expr      = %s\n",p->expr);
+             printf("old value = 0x%08x\n",p->old_val);
+             break;
+          }
+          p=p->next;
+      }
+      return 1;
+}
+static int cmd_d(char *args)
+{
+     char *arg=strtok(NULL," ");
+     int no;
+     sscanf(arg,"%d",&no);
+     bool flag=delete_watchpoint(no);
+     if(flag==true) 
+     printf("Watchpoint %d deleted\n",no);
+     else printf("fail to delete watchpoint %d\n",no); 
+     return 1;    
+}
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
     cmd_c(NULL);
