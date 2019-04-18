@@ -197,21 +197,7 @@ static int cmd_p(char *args){
 static int cmd_w(char *args)
 { 
       char *arg=strtok(NULL," ");
-      int no=set_watchpoint(arg);
-      WP *p;
-      printf("%s\n",head->expr);
-      p=head;
-      while(p!=NULL)
-      {
-         if(p->NO==no)
-          {
-             printf("Set watchpoint #%d\n",no);
-             printf("expr      = %s\n",p->expr);
-             printf("old value = 0x%08x\n",p->old_val);
-             break;
-          }
-          p=p->next;
-      }
+      set_watchpoint(arg);
       return 1;
 }
 static int cmd_d(char *args)
