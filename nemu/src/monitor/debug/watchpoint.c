@@ -78,7 +78,6 @@ bool delete_watchpoint(int NO)
          {
             head=head->next;
             strcpy(p->expr,"");
-            p->NO=-1;
             p->old_val=p->new_val=0;
             free_wp(p);
             return true;
@@ -86,7 +85,6 @@ bool delete_watchpoint(int NO)
     else {
             q->next=p->next;
             strcpy(p->expr,"");
-            p->NO=-1;
             p->old_val=p->new_val=0;
             free_wp(p);
             return true;
