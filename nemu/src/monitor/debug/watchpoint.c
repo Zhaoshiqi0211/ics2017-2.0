@@ -80,8 +80,7 @@ bool delete_watchpoint(int NO)
             strcpy(p->expr,"");
             p->NO=-1;
             p->old_val=p->new_val=0;
-            p->next=free_;
-            free_=p;
+            free_wp(p);
             return true;
          } 
     else {
@@ -89,8 +88,7 @@ bool delete_watchpoint(int NO)
             strcpy(p->expr,"");
             p->NO=-1;
             p->old_val=p->new_val=0;
-            p->next=free_;
-            free_=p;
+            free_wp(p);
             return true;
          }  
 }
