@@ -50,7 +50,7 @@ int set_watchpoint(char *e)
      uint32_t n=expr(e,&success);
      WP *p=new_wp();
      strcpy(p->expr,e);
-     p->old_val=n;
+     p->new_val=p->old_val=n;
      p->next=head;
      head=p;
      printf("Set watchpoint #%d\n",p->NO);
@@ -110,9 +110,13 @@ WP* scan_watchpoint()
 {
    WP *p;
    int flag=0;
+   uint32_t n;
    p=head;
+   bool success=false;
    while(p!=NULL)
    {
+      n=expr(p->expr,&success);
+      p->new_val=n;
       if(p->new_val!=p->old_val)
       {
          flag=1;
