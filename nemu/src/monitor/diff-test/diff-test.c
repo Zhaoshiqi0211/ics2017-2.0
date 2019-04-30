@@ -127,7 +127,7 @@ void init_qemu_reg() {
 }
 
 void difftest_step(uint32_t eip) {
-  union gdb_regs r;
+  union gdb_regs r,a;
   bool diff = false;
 
   if (is_skip_nemu) {
@@ -149,7 +149,11 @@ void difftest_step(uint32_t eip) {
 
   // TODO: Check the registers state with QEMU.
   // Set `diff` as `true` if they are not the same.
-  TODO();
+  regcpy_from_nemu(a);
+  if(r.eax!=a.eax||r.ebx!=a.ebx||r.ecx!=a.ecx||r.ebp!=a.ebp||r.edx!=a.edx||r.edi!=a.edi||r.esi!=a.esi||r.esp!=a.esp||r.eip!=a.eip)
+  {
+	  diff=true;
+  }  
 
   if (diff) {
     nemu_state = NEMU_END;
